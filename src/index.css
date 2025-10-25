@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FullCalendar tweaks */
+.fc .fc-toolbar-title { font-weight: 700; }
+.fc .fc-daygrid-event { border-radius: 0.75rem; padding: 2px 6px; }
+.fc-theme-standard td, .fc-theme-standard th { border-color: #262626; }
+.fc { --fc-neutral-bg-color: #111827; --fc-page-bg-color: #0a0a0a; }
