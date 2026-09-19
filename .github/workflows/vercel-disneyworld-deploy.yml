@@ -8,7 +8,7 @@ on:
       - ".github/workflows/vercel-disneyworld-deploy.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   deploy:
@@ -41,12 +41,25 @@ jobs:
           NO_COLOR: "1"
           FORCE_COLOR: "0"
         run: |
-          echo "VERCEL_DEVICE_AUTH_START"
-          timeout 10m script -q -e -c "env -u CI vercel login --no-color" /dev/null
-          echo "VERCEL_DEVICE_AUTH_DONE"
-          vercel link --yes --project disneyworld --scope aakashrd9868-gmailcoms-projects --cwd site --no-color
-          echo "VERCEL_LINK_DONE"
-          vercel deploy --prod --yes --scope aakashrd9868-gmailcoms-projects --cwd site --no-color
-          echo "VERCEL_DEPLOY_DONE"
+          rm -f /tmp/vercel-login.log
+          timeout 10m script -q -f -c "env -u CI vercel login --no-color" /tmp/vercel-login.log &
+          LOGIN_PID=$!
 
-# trigger 2
+          for i in $(seq 1 30); do
+            if grep -Eqi 'https://vercel.com|user[_ -]?code|verification' /tmp/vercel-login.log 2>/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+
+          cp /tmp/vercel-login.log deployment-temp/vercel-login.txt || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deployment-temp/vercel-login.txt
+          git commit -m "Publish temporary Vercel device login instructions" || true
+          git push origin HEAD:main
+
+          wait "$LOGIN_PID"
+
+          vercel link --yes --project disneyworld --scope aakashrd9868-gmailcoms-projects --cwd site --no-color
+          vercel deploy --prod --yes --scope aakashrd9868-gmailcoms-projects --cwd site --no-color
