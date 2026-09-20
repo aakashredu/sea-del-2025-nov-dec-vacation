@@ -142,7 +142,7 @@ const DAYS=[
 {id:'ak-dinner',time:'5:15 PM',title:'Satu’li Canteen + Pandora evening',desc:'Return to Pandora for dinner. Chicken/vegetarian bowls fit your food preferences.',tags:['Food'],loc:"Satu'li Canteen"},
 {id:'ak-home',time:'6:30 PM',title:'Bus back to Art of Animation',desc:'Animal Kingdom closes earlier than the other parks; leave before exhaustion becomes the last memory of the day.',tags:['Transport'],loc:HOTEL}
 ]},
-{date:'2026-09-20',name:'Hollywood Studios',type:'studios',subtitle:'Frozen → Mickey & Minnie → 50’s Prime Time → Runaway Railway → Disney Jr.',hours:'Early Entry 8:30 AM · confirmed dining + LL anchors',ll:[
+{date:'2026-09-20',name:'Hollywood Studios',type:'studios',subtitle:'Frozen → Mickey & Minnie → 50’s Prime Time → Disney Jr. → hotel reset → Fantasmic',hours:'Early Entry 8:30 AM · confirmed dining + LL anchors',ll:[
 {time:'9:05–9:20',name:'For the First Time in Forever: A Frozen Sing-Along Celebration',note:'Lightning Lane · Redeem 9:05–9:20 AM · 9:30 AM show'},
 {time:'10:45 AM',name:"50’s Prime Time Cafe Lunch",note:'Dining · CONFIRMED · Table Service',kind:'Dining'},
 {time:'11:35–12:35',name:"Mickey & Minnie’s Runaway Railway",note:'Lightning Lane · Booked'},
@@ -158,11 +158,11 @@ const DAYS=[
 {id:'hs-mermaid',time:'1:45 PM',title:'Little Mermaid – A Musical Adventure',desc:'Use the nearest suitable showtime only if it fits comfortably. The 2:45 PM Disney Jr. redeem window is the next hard anchor.',tags:['Show','Flexible'],loc:'The Little Mermaid A Musical Adventure Hollywood Studios'},
 {id:'hs-disneyjr',time:'2:45 PM',title:'Lightning Lane · Disney Jr. Mickey Mouse Clubhouse Live!',desc:'UPDATED BOOKING: redeem 2:45–2:55 PM for the 3:05 PM show.',tags:['LL','Must'],loc:'Disney Jr Mickey Mouse Clubhouse Live Hollywood Studios'},
 {id:'hs-disneyjrshow',time:'3:05 PM',title:'Disney Jr. Mickey Mouse Clubhouse Live! · show',desc:'Confirmed 3:05 PM showtime. This replaces the previous Toy Story Mania Lightning Lane anchor.',tags:['Show','Must'],loc:'Disney Jr Mickey Mouse Clubhouse Live Hollywood Studios'},
-{id:'hs-rest',time:'3:45 PM',title:'Optional Skyliner hotel reset',desc:'Take this only if Vihaan needs a real break. Otherwise stay in the park for Beauty and the Beast, character time, or any missed major attraction.',tags:['Optional'],loc:HOTEL},
-{id:'hs-beauty',time:'5:15 PM',title:'Beauty and the Beast / missed-attraction recovery',desc:'Use current showtimes and waits. If Toy Story Mania was skipped earlier, this block can become your recovery window instead.',tags:['Show','Flexible'],loc:'Beauty and the Beast Live on Stage Hollywood Studios'},
-{id:'hs-dinner',time:'6:15 PM',title:'Light dinner / snack + Sunset Boulevard',desc:'Because lunch is early and substantial, use this as a lighter dinner before Fantasmic.',tags:['Food'],loc:'Disney Hollywood Studios'},
-{id:'hs-fant',time:'7:15 PM',title:'Enter Fantasmic amphitheater',desc:'Target the amphitheater about 45 minutes before the scheduled show for a calmer stroller transition.',tags:['Must','Nighttime'],loc:'Fantasmic Hollywood Studios'},
-{id:'hs-show',time:'8:00 PM',title:'Fantasmic!',desc:'Nighttime spectacular. Verify the exact showtime in My Disney Experience on the day.',tags:['Show','Must'],loc:'Fantasmic Hollywood Studios'}
+{id:'hs-rest',time:'3:45 PM',title:'Rain interruption · return to Art of Animation',desc:'Heavy rain after the Disney Jr. show. Head back to the hotel, dry off, change clothes and let everyone recover. No need to chase the remaining afternoon attractions.',tags:['Weather','Hotel reset'],loc:HOTEL},
+{id:'hs-dinner',time:'5:45 PM',title:'Early light dinner / snack at hotel',desc:'Eat something easy at Art of Animation before heading back. Keep the evening simple so Fantasmic is the only real objective.',tags:['Food','Hotel'],loc:HOTEL},
+{id:'hs-return',time:'6:30 PM',title:'Skyliner back to Hollywood Studios',desc:'Head back only for the evening plan. Check My Disney Experience before leaving in case weather affects Fantasmic.',tags:['Transport','Weather check'],loc:'Disney Hollywood Studios'},
+{id:'hs-fant',time:'7:15 PM',title:'Enter Fantasmic amphitheater',desc:'Target the amphitheater about 45 minutes before the scheduled show. If weather delays or cancels Fantasmic, skip the rest of the park and return to the hotel.',tags:['Must','Nighttime'],loc:'Fantasmic Hollywood Studios'},
+{id:'hs-show',time:'8:00 PM',title:'Fantasmic!',desc:'Tonight’s only remaining priority. Verify the exact show status in My Disney Experience before and after you leave the hotel.',tags:['Show','Must'],loc:'Fantasmic Hollywood Studios'}
 ]},
 {date:'2026-09-21',name:'Magic Kingdom',type:'magic',subtitle:'Chef Mickey’s → Tomorrowland → Fantasyland → Adventureland',hours:'Park 9:00 AM–11:00 PM · confirmed dining + LL anchors',ll:[
 {time:'7:35 AM',name:"Chef Mickey’s Fun Time Character Breakfast",note:'Dining · CONFIRMED · Disney’s Contemporary Resort',kind:'Dining'},
