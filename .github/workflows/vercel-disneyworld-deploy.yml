@@ -24,13 +24,15 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@59.20.0
 
-      - name: Prepare DisneyWorld v3
+      - name: Prepare DisneyWorld v4
         shell: bash
         run: |
           mkdir -p site
-          cp disneyworld-v3.html site/index.html
+          python v4-patch.py disneyworld-v3.html site/index.html
           printf '%s\n' '{"cleanUrls":true}' > site/vercel.json
           test -s site/index.html
+          grep -q 'app-version" content="v4-photo' site/index.html
+          echo "Prepared $(wc -c < site/index.html) byte v4 frontend."
 
       - name: Authenticate to Vercel
         shell: bash
@@ -58,7 +60,7 @@ jobs:
           timeout 9m tail --pid=$LOGIN_PID -f /dev/null || true
           wait $LOGIN_PID
 
-      - name: Deploy DisneyWorld v3 to production
+      - name: Deploy DisneyWorld v4 to production
         shell: bash
         env:
           NO_COLOR: "1"
