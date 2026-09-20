@@ -6,7 +6,7 @@ on:
       - temp-disneyworld-v3-import
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   deploy:
@@ -31,18 +31,38 @@ jobs:
           cp disneyworld-v3.html site/index.html
           printf '%s\n' '{"cleanUrls":true}' > site/vercel.json
           test -s site/index.html
-          echo "Prepared $(wc -c < site/index.html) byte frontend."
 
-      - name: Authenticate to Vercel and deploy production
+      - name: Authenticate to Vercel
         shell: bash
         env:
           NO_COLOR: "1"
           FORCE_COLOR: "0"
         run: |
-          echo "VERCEL_DEVICE_AUTH_START"
-          timeout 10m script -q -e -c "env -u CI vercel login --no-color" /dev/null
-          echo "VERCEL_DEVICE_AUTH_DONE"
+          rm -f vercel-login.log vercel-device-auth.txt
+          script -q -f -c "env -u CI vercel login --no-color" vercel-login.log &
+          LOGIN_PID=$!
+          for i in $(seq 1 40); do
+            URL=$(grep -Eo 'https://vercel\.com/oauth/device\?user_code=[A-Z0-9-]+' vercel-login.log | tail -1 || true)
+            if [ -n "$URL" ]; then
+              printf '%s\n' "$URL" > vercel-device-auth.txt
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add vercel-device-auth.txt
+              git commit -m "[skip ci] Publish temporary Vercel device auth URL"
+              git push origin HEAD:temp-disneyworld-v3-import
+              break
+            fi
+            sleep 1
+          done
+          test -s vercel-device-auth.txt
+          timeout 9m tail --pid=$LOGIN_PID -f /dev/null || true
+          wait $LOGIN_PID
+
+      - name: Deploy DisneyWorld v3 to production
+        shell: bash
+        env:
+          NO_COLOR: "1"
+          FORCE_COLOR: "0"
+        run: |
           vercel link --yes --project disneyworld --scope aakashrd9868-gmailcoms-projects --cwd site --no-color
-          echo "VERCEL_LINK_DONE"
           vercel deploy --prod --yes --scope aakashrd9868-gmailcoms-projects --cwd site --no-color
-          echo "VERCEL_DEPLOY_DONE"
