@@ -1,1 +1,1 @@
-https://vercel.com/oauth/device?user_code=CTMH-JGBM
+https://vercel.com/oauth/device?user_code=VMHS-FLGT
