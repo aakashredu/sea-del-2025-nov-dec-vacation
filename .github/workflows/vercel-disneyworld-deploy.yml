@@ -41,7 +41,7 @@ jobs:
           FORCE_COLOR: "0"
         run: |
           rm -f vercel-login.log vercel-device-auth.txt
-          script -q -f -c "env -u CI vercel login --no-color" vercel-login.log &
+          script -q -e -f -c "env -u CI vercel login --no-color" vercel-login.log &
           LOGIN_PID=$!
           for i in $(seq 1 40); do
             URL=$(grep -Eo 'https://vercel\.com/oauth/device\?user_code=[A-Z0-9-]+' vercel-login.log | tail -1 || true)
@@ -59,6 +59,7 @@ jobs:
           test -s vercel-device-auth.txt
           timeout 9m tail --pid=$LOGIN_PID -f /dev/null || true
           wait $LOGIN_PID
+          vercel whoami --no-color
 
       - name: Deploy DisneyWorld v4 to production
         shell: bash
